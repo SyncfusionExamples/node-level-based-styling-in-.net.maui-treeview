@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.TreeView;assembly=Syncfusion.Maui.TreeView"
+             xmlns:local="clr-namespace:TreeViewMaui"
+             x:Class="TreeViewMaui.MainPage">
+    <ContentPage.BindingContext>
+        <local:FileManagerViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:FontAttributesConverter x:Key="FontAttributeConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <syncfusion:SfTreeView x:Name="treeView" Grid.Row="1"
+                                   AutoExpandMode="RootNodesExpanded"
+                                   ChildPropertyName="SubFiles"
+                                   ItemTemplateContextType="Node"                           
+                                   ItemsSource="{Binding ImageNodeInfo}" >
+                <syncfusion:SfTreeView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid x:Name="grid" RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Image Source="{Binding Content.ImageIcon}"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       HeightRequest="24" 
+                                       WidthRequest="24"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Label Text="{Binding Content.ItemName}" VerticalTextAlignment="Center" 
+                                   FontAttributes="{Binding Level,Converter={x:StaticResource FontAttributeConverter}}"/>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </syncfusion:SfTreeView.ItemTemplate>
+            </syncfusion:SfTreeView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
